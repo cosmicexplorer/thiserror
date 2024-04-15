@@ -1,4 +1,7 @@
+#[cfg(feature = "std")]
 use std::error::Error;
+#[cfg(not(feature = "std"))]
+use core::error::Error;
 
 pub trait AsDynError<'a> {
     fn as_dyn_error(&self) -> &(dyn Error + 'a);

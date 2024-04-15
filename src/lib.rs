@@ -206,6 +206,8 @@
     clippy::doc_markdown,
     clippy::module_name_repetitions,
 )]
+#![cfg_attr(not(feature = "std"), feature(error_in_core))]
+#![cfg_attr(not(feature = "std"), no_std)]
 
 mod aserror;
 mod display;
@@ -216,5 +218,7 @@ pub use thiserror_impl::*;
 #[doc(hidden)]
 pub mod private {
     pub use crate::aserror::AsDynError;
-    pub use crate::display::{DisplayAsDisplay, PathAsDisplay};
+    pub use crate::display::DisplayAsDisplay;
+    #[cfg(feature = "std")]
+    pub use crate::display::PathAsDisplay;
 }
